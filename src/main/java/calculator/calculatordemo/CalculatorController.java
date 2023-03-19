@@ -28,10 +28,10 @@ public class CalculatorController {
     }
     @GetMapping("/minus")
     public String minus(@RequestParam(required = false) Integer num1, @RequestParam(required = false) Integer num2) {
-        //if (num1 == null || num2 == null){
-           // return "Ошибка, не передан параметр";
-        //}
-        return getException(num1, num2, calculatorService.minus(num1, num2), " - " );
+        if (num1 == null || num2 == null){
+            return "Ошибка, не передан параметр";
+        }
+        return num1+ " * " +num2+ " = " +calculatorService.minus(num1, num2);
     }
     @GetMapping("/multiply")
     public String multiply(@RequestParam(required = false) Integer num1, @RequestParam(required = false) Integer num2) {
@@ -51,16 +51,4 @@ public class CalculatorController {
         return num1+ " / " +num2+ " = " +calculatorService.division(num1, num2);
     }
 
-    private String getException(Integer num1,
-                                Integer num2,
-                                Number total,
-                                String mode) {
-        if (num1 == null || num2 == null) {
-            return "Ошибка, не передан параметр";
-        }
-        if ("/".equals((mode)) & num2 == 0) {
-            return "Ошибка, на ноль делить нельзя";
-        }
-        return num1 + " " + mode + " " +num2 + " = " + total;
-    }
 }
